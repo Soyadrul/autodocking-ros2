@@ -145,7 +145,7 @@ The steps required to run the code vary between different boards
 
 To start follow the instructions at this [link](https://github.com/nautilus-unipd/raspberry-setup), but only if you don't have the Docker image already installed.
 
-Enter inside this folder repo (`autodocking-ros2`) and run this command to start the container
+Enter inside this folder repo (`autodocking-ros2`) and then run this command to start the container
 ```bash
 docker compose run --rm raspberry
 ```
