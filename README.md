@@ -1,4 +1,4 @@
-# sensig-rigs-ros2
+# autodocking-ros2
 ROS2 System for autodocking subproject
 
 ---
@@ -143,7 +143,7 @@ The steps required to run the code vary between different boards
 
 ### Raspberry Pi
 
-To start follow the instructions at this [link](https://github.com/nautilus-unipd/raspberry-setup), only if you don't have the Docker image already installed.
+To start follow the instructions at this [link](https://github.com/nautilus-unipd/raspberry-setup), but only if you don't have the Docker image already installed.
 
 Run this command to start the container
 ```bash
@@ -175,7 +175,7 @@ ros2 run sensig_preprocessing PreprocessingNode
 ```
 
 > [!WARNING]
-> If you want to execute the processing with the Raspberry Pi 5, instead of using the Jetson, follow the next instructions
+> If you want to execute the processing part with the Raspberry Pi 5, instead of the Jetson, follow the next instructions
 
 Open a new terminal and attach to running container
 ```bash
