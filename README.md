@@ -1,11 +1,11 @@
 # sensig-rigs-ros2
-ROS2 System for sensing rigs subproject
+ROS2 System for autodocking subproject
 
 ---
 
 ## 1. Project Overview
 
-This repository contains all ROS2 nodes required to run the sensig rigs module.
+This repository contains all ROS2 nodes required to run the autodocking module.
 
 ---
 
@@ -150,8 +150,8 @@ docker compose run --rm raspberry
 
 `cd` inside the directory, build the project and source it
 ```bash
-cd sensing-rigs-ros2/ros2_ws
-colcon build --symlink-install
+cd autodocking-ros2/ros2_ws && \
+colcon build --symlink-install && \
 source install/setup.bash
 ```
 
@@ -161,16 +161,47 @@ ros2 launch lifecycle_manager lifecycle_manager.launch.py
 ```
 
 **TEMPORARY SOLUTION** (a complete launch file will be made)<br>
-Open a new terminal, ssh inside the raspberry, attach to running container
+Open a new terminal and attach to running container
 ```bash
-ssh admin@raspberrypi.local
 docker exec -it $(docker ps -q --filter "ancestor=ghcr.io/nautilus-unipd/raspberry-setup:latest" | head -n 1) bash
 ```
 `cd` inside the directory, source the project and run the preprocessing node
 ```bash
-cd sensing-rigs-ros2/ros2_ws
+cd autodocking-ros2/ros2_ws
 source install/setup.bash
 ros2 run sensig_preprocessing PreprocessingNode
+```
+
+> [!WARNING]
+> If you want to execute the processing with the Raspberry Pi 5, instead of using the Jetson, follow the next instructions
+
+Open a new terminal and attach to running container
+```bash
+docker exec -it $(docker ps -q --filter "ancestor=ghcr.io/nautilus-unipd/raspberry-setup:latest" | head -n 1) bash
+```
+
+Allow python packages to be installed globally
+```bash
+echo "export PIP_BREAK_SYSTEM_PACKAGES=1" >> ~/.bashrc && \
+source ~/.bashrc && \
+cd sensing-rigs-ros2/ros2_ws
+```
+
+Install packages
+```bash
+rosdep update && \
+rosdep install -i --from-path src --rosdistro jazzy -y -r
+```
+
+Compile
+```bash
+colcon build --symlink-install && \
+source install/setup.bash
+```
+
+Execute the image processing algorithm
+```bash
+ros2 launch autodocking_saver image_saver.launch.py
 ```
 
 
