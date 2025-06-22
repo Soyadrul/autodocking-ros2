@@ -184,7 +184,7 @@ Allow python packages to be installed globally
 ```bash
 echo "export PIP_BREAK_SYSTEM_PACKAGES=1" >> ~/.bashrc && \
 source ~/.bashrc && \
-cd sensing-rigs-ros2/ros2_ws
+cd autodocking-ros2/ros2_ws
 ```
 
 Install packages
