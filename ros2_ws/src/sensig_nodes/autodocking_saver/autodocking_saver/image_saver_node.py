@@ -33,7 +33,7 @@ class AutodockingSaver(Node):
         self.bridge = CvBridge()
         self.processing = False  # Flag to indicate if processing is ongoing
         self.image_counter = 1
-        self.output_dir = f'/home/ubuntu/sensing-rigs-ros2/camera_images' # Where to save the processed image
+        self.output_dir = f'/home/ubuntu/autodocking-ros2/camera_images' # Where to save the processed image
         os.makedirs(self.output_dir, exist_ok=True)
     
     def left_callback(self, msg):
@@ -73,7 +73,7 @@ class AutodockingSaver(Node):
 
     def process_image(self, image):
         start = time.time()
-        predict_ros_adaptation.predict(image, f"{self.output_dir}/out-{self.image_counter}.jpg") # Call the function that will process the image
+        predict_ros_adaptation.predict(image, self.save_image_enabled,f"{self.output_dir}/out-{self.image_counter}.jpg") # Call the function that will process the image
         end = time.time()
         elapsed = end - start
         self.get_logger().info(f"Inference time (image {self.image_counter}): {elapsed:.2f}s\n") # Show the time it took to process the image

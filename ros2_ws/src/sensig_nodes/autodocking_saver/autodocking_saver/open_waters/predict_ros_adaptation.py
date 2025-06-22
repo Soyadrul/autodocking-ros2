@@ -44,7 +44,7 @@ def predict_image(model, image, imu_mask=None):
     return prediction
 
 
-def predict(image : Image, image_path):
+def predict(image : Image, save_image, image_path):
     #questo e' il path del file in output
     OUT_PATH = image_path
     #OUT_PATH = os.path.join(OUT_PATH, image_name)
@@ -82,6 +82,9 @@ def predict(image : Image, image_path):
     # Convert predictions to RGB class colors
     preds_rgb = SEGMENTATION_COLORS[preds]
     preds_img = Image.fromarray(preds_rgb)
+
+    if not save_image:
+        return
 
     output_dir = Path(OUT_PATH).parent
     if not output_dir.exists():
