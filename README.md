@@ -143,6 +143,8 @@ The steps required to run the code vary between different boards
 
 ### Raspberry Pi
 
+To start follow the instructions at this [link](https://github.com/nautilus-unipd/raspberry-setup), only if you don't have the Docker image already installed.
+
 Run this command to start the container
 ```bash
 docker compose run --rm raspberry
@@ -167,8 +169,8 @@ docker exec -it $(docker ps -q --filter "ancestor=ghcr.io/nautilus-unipd/raspber
 ```
 `cd` inside the directory, source the project and run the preprocessing node
 ```bash
-cd autodocking-ros2/ros2_ws
-source install/setup.bash
+cd autodocking-ros2/ros2_ws && \
+source install/setup.bash && \
 ros2 run sensig_preprocessing PreprocessingNode
 ```
 
@@ -193,7 +195,7 @@ rosdep update && \
 rosdep install -i --from-path src --rosdistro jazzy -y -r
 ```
 
-Compile
+Build the project
 ```bash
 colcon build --symlink-install && \
 source install/setup.bash
@@ -204,6 +206,7 @@ Execute the image processing algorithm
 ros2 launch autodocking_saver image_saver.launch.py
 ```
 
+If you want to see the taken and processed images, add ` save_image:=True` to the previous command.
 
 ### Jetson Nano
 Run this command to start the container
