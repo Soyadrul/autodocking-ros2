@@ -1,4 +1,5 @@
 #import debugpy
+from datetime import datetime
 import rclpy
 from rclpy.node import Node
 from rclpy.parameter import Parameter
@@ -35,6 +36,15 @@ class AutodockingSaver(Node):
         self.image_counter = 1
         self.output_dir = f'/home/ubuntu/autodocking-ros2/camera_images' # Where to save the processed image
         os.makedirs(self.output_dir, exist_ok=True)
+        self.log_dir = f'/home/ubuntu/autodocking-ros2/log'
+        os.makedirs(self.log_dir, exist_ok=True) # Log directory is created 
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        self.log_file_path = f'/home/ubuntu/autodocking-ros2/log/log_{timestamp}.txt'
+        with open(self.log_file_path, 'w') as log_f:
+            log_f.write(f"=== Autodocking image processing log started at {timestamp} ===\n\n")
+
+        self.get_logger().info(f"Log file created at: {self.log_file_path}")
+
     
     def left_callback(self, msg):
         
@@ -77,6 +87,8 @@ class AutodockingSaver(Node):
         end = time.time()
         elapsed = end - start
         self.get_logger().info(f"Inference time (image {self.image_counter}): {elapsed:.2f}s\n") # Show the time it took to process the image
+        with open(self.log_file_path, 'a') as log_f:
+            log_f.write(f"Inference time (image {self.image_counter}): {elapsed:.2f}s\n")
         self.image_counter += 1
 
     # Function to convert the image from cv2 to a PIL image
